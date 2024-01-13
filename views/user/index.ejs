@@ -3,16 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="assets/style.css">
+    <title>Daftar User</title>
+    <link rel="stylesheet" href="../assets/style.css">
   </head>
   <body>
+
     <%- include('../components/navbar')%>
     <h1>User List</h1>
-
+    <p>User yang terdaftar = <%= users.length%> </>
     <ul>
       <% users.forEach((user)=>{%> 
-         <li><%= user.id %>. <%= user.name.toUpperCase() %> , <%= user.email %></li> 
+         <li> <a href="/users/<%= user.id %>">  <%= user.name.toUpperCase() %> , <%= user.email %></a></li> 
       <%});
       %>
     </ul>

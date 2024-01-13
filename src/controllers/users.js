@@ -1,4 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
+const User = require('../models/users');
 // dummy data
 let users = [
     { id: 1, name: "Delphia", email: "Felipa_Dietrich36@gmail.com" },
@@ -26,7 +27,6 @@ module.exports={
         res.render('user/register')
     },
     add:(req, res) => {
-        users.push(res.body)
         // res.json({
         //   status:true,
         //   data:users,
@@ -35,8 +35,25 @@ module.exports={
         //   url: req.url
         // });
         // users.push(res.body);
-      console.log(users);
+      const user = new User({
+        name:req.body.name,
+        email:req.body.email,
+        password:req.body.password
+      })
+      user.save();
+      // users.push({
+      //   id:uuidv4(),
+      //   name:req.body.name,
+      //   email:req.body.email
+      // })
       },
+    show:(req,res) =>{
+      const id = req.params.id
+      const data = users.filter(user => {
+        return user.id == id
+      })
+      res.render('user/show',{user: data})
+    },
     update:(req, res) => {
         const id = req.params.id
         users.filter(user =>{
