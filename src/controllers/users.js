@@ -1,10 +1,12 @@
-const { v4: uuidv4 } = require('uuid');
-const User = require('../models/users');
-// dummy data
-let users = [
-    { id: 1, name: "Delphia", email: "Felipa_Dietrich36@gmail.com" },
-    { id: 2, name: "Caitlyn", email: "Marisol.Lesch36@gmail.com" }
-  ]
+const { PrismaClient} = require('@prisma/client')
+const prisma = new PrismaClient({
+  datasources: { db: { url: process.env.DATABASE_URL } }
+})
+// // dummy data
+// let users = [
+//     { id: 1, name: "Delphia", email: "Felipa_Dietrich36@gmail.com" },
+//     { id: 2, name: "Caitlyn", email: "Marisol.Lesch36@gmail.com" }
+//   ]
   
 module.exports={
     index: (req, res) => {
@@ -21,7 +23,9 @@ module.exports={
         //   status:false,
         //   message: 'data users kosong!'
         // });
-        res.render('user/index',{users})
+        const users = prisma.user.findMany()
+        res.send(users);
+        // res.render('user/index',{users})
       },
     register:(req,res) =>{
         res.render('user/register')
@@ -35,12 +39,14 @@ module.exports={
         //   url: req.url
         // });
         // users.push(res.body);
-      const user = new User({
+      const user = prisma.user.create({
+        data: {
         name:req.body.name,
         email:req.body.email,
-        password:req.body.password
-      })
-      user.save();
+      },
+    })
+      console.log(user);
+      res.redirect('/users');
       // users.push({
       //   id:uuidv4(),
       //   name:req.body.name,

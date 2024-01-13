@@ -2,11 +2,6 @@ const express = require('express');
 const userRouter = require('./router/users');
 const app = express()
 const port = 3000 
-const mongoose = require('mongoose'); 
-mongoose.connect('mongodb://localhost:27017/database-keren/root/example', {
-    serverSelectionTimeoutMS: 5000
-  }).catch(err => console.log(err.reason));
-  
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
