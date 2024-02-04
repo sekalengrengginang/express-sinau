@@ -1,34 +1,25 @@
 const express = require('express');
-const userRouter = require('./router/users');
+const cors = require('cors')
+const articleRouter = require('./router/article');
+const authRoutes = require('./router/auth');
 const app = express()
 const port = 3000 
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
+app.use(cors());
 
-app.use(userRouter)
+// routing
+app.use(articleRouter);
+app.use(authRoutes);
 
-var reqTime = (req,res,next)=>{
-    req.reqTime = new Date()
-    next() 
-}
-
-app.use(reqTime)
-app.set('view engine','ejs')
-app.use('/assets',express.static(__dirname + '/public'));
-
+// root route
 app.get('/', (req, res) => {
-    // res.send('<img src="https://media1.tenor.com/m/fSwZVENOqB4AAAAC/arisu-tachibana-idolmaster-cinderella-girls-u149.gif"/>')
-    const tanggal = {
-        date: req.reqTime.toString()
-    }
-    res.render('pages/index.ejs',{tanggal: tanggal})
+    res.send('index!')
 })
-
-
+// about route
 app.get('/about', (req, res) => {
-    res.render('pages/about.ejs')
+    res.send('about!')
 })
-
 app.listen(port, () => {
-    console.log(`Aplikasi ini berjalan pada port ${port}`)
+    console.log(`server ini berjalan pada port ${port}`)
 })

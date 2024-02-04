@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/php-mariadb
 {
-	"name": "PHP & MariaDB",
+	"name": "Node & MariaDB",
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "app",
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
@@ -15,9 +15,19 @@
 		3306
 	],
 	"features": {
-		"ghcr.io/devcontainers/features/node:1": {},
-		"ghcr.io/devcontainers-contrib/features/prisma:2": {},
-		"ghcr.io/r3dpoint/devcontainer-features/tailwindcss-standalone-cli:1": {}
+		"ghcr.io/devcontainers/features/node:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"BracketPairColorDLW.bracket-pair-color-dlw",
+				"ecmel.vscode-html-css",
+				"kisstkondoros.vscode-gutter-preview",
+				"oderwat.indent-rainbow",
+				"esbenp.prettier-vscode",
+				"Prisma.prisma"
+			]
+		}
 	}
 
 	// Use 'postCreateCommand' to run commands after the container is created.

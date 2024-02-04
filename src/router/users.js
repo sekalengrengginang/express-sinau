@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const usersController = require('../controllers/users');
+const usersController = require('../controllers/usersController');
 
 // get and post route
 router.route('/users')
-  .get(usersController.index)
-  .post(usersController.add);
+  .get(usersController.showAllusers)
+  .post(usersController.addUsers);
   
-// put and delete route
-router.put('/users/:id', usersController.update);
-router.delete('/users/:id', usersController.delete);
-// register page
-router.get('/users/register',usersController.register);
-router.get('/users/:id',usersController.show);
+// put show and delete route
+router.put('/users/:id', usersController.updateUsers);
+router.get('/users/:id',usersController.showUsers);
+router.delete('/users/:id', usersController.deleteUsers);
+
 module.exports = router
